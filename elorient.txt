@@ -1,0 +1,15 @@
+*get,nelem,elem,,num,max 	! get number of elements
+
+*do,in,1,nelem 				! index 'in' from 1 to nelem
+	csys,0					! 0 degree coordinate system
+	*get,a1,ELEM,in,CENT,X	! get centroid x coord in a1
+	*if,a1,gt,0,then 		! if x coord > 0
+			t1=2*90*a1		! plate width= 1 m
+		*else				! 2/25*(90-0)+0
+			t1=-2*90*a1		
+	*endif
+	local,10+in,,,,,t1		!User defined coordinates
+	ESEL,S,ELEM,,in			!starts from 11
+	emodif,all,esys,10+in	!selecting and modifying elem 
+*enddo						!coord to user defined coord
+esel,all
